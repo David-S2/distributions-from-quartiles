@@ -29,7 +29,7 @@ def get_skewnorm_from_quartiles(q1, q2, q3):
     return {
         "alpha": alpha,
         "scale": scale,
-        "loc": q2 - get_skewnorm_median(alpha, 0, scale)
+        "loc": q2 - skewnorm.ppf(0.5, alpha, 0, scale)
     }
 
 def plot_pdf(params, descriptive_stats, q1, q2, q3):
