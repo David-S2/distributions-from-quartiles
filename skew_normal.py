@@ -4,25 +4,12 @@ from scipy.optimize import root_scalar
 import matplotlib.pyplot as plt
 import numbers
 
-def get_skewnorm_median(alpha, loc=0, scale=1):
-    def objective_function(x, target_probability):
-        return skewnorm.cdf(x, alpha, loc, scale) - target_probability
-    if alpha > 0:
-        return root_scalar(objective_function, args=(0.5,), x0=loc, x1=loc+scale).root
-    elif alpha < 0:
-        return root_scalar(objective_function, args=(0.5,), x0=loc, x1=loc-scale).root
-    else:
-        return loc
-
 def get_skewnorm_quartiles(alpha, loc=0, scale=1):
-    def objective_function(x, target_probability):
-        return skewnorm.cdf(x, alpha, loc, scale) - target_probability
-    quartiles = [
-        root_scalar(objective_function, args=(0.25,), x0=loc, x1=loc-scale).root,
-        get_skewnorm_median(alpha, loc, scale),
-        root_scalar(objective_function, args=(0.75,), x0=loc, x1=loc+scale).root,
+    return [
+        skewnorm.ppf(0.25, alpha, loc, scale),
+        skewnorm.ppf(0.5, alpha, loc, scale),
+        skewnorm.ppf(0.75, alpha, loc, scale),
     ]
-    return quartiles
 
 def get_skewnorm_from_quartiles(q1, q2, q3):
     def objective_function_1(alpha):
