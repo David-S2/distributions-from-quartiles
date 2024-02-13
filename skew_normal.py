@@ -25,7 +25,7 @@ def get_skewnorm_from_quartiles(q1, q2, q3):
         quartiles = get_skewnorm_quartiles(alpha, 0, scale)
         return quartiles[2] - quartiles[0] - q3 + q1
     scale = root_scalar(objective_function_2, x0=(q3-q1)/4, x1=(q3-q1)/2).root
-    median = get_skewnorm_median(alpha, 0, scale)
+    median = skewnorm.ppf(0.5, alpha, 0, scale)
     return {
         "alpha": alpha,
         "scale": scale,
