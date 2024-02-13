@@ -37,7 +37,6 @@ def get_gamma_from_quartiles(q1, q2, q3):
 def plot_pdf(params, descriptive_stats, q1, q2, q3):
     x_values = np.linspace(0, q3 + 3 * (q3 - q1), 1000)
     pdf_values = gamma.pdf(x_values, params["alpha"], loc=params["loc"], scale=params["scale"])
-    plt.axvline(x=0, color='black', linestyle='-')
     plt.title('Gamma Distribution PDF')
     plt.xlabel('X')
     plt.ylabel('Probability Density')
@@ -64,7 +63,6 @@ def plot_pdf(params, descriptive_stats, q1, q2, q3):
 def plot_cdf(params, descriptive_stats, q1, q2, q3):
     x_values = np.linspace(0, q3 + 3 * (q3 - q1), 1000)
     cdf_values = gamma.cdf(x_values, params["alpha"], loc=params["loc"], scale=params["scale"])
-    plt.axvline(x=0, color='black', linestyle='-')
     plt.title('Cumulative Probability Density Function')
     plt.xlabel('X')
     plt.ylabel('Probability Density')
@@ -172,6 +170,7 @@ def get_gamma_dist_stats_from_quartiles(q1, q2, q3):
     descriptive_stats["standard_deviation"] = np.sqrt(descriptive_stats["var"])
     plot_pdf(params, descriptive_stats, q1, q2, q3)
     plot_cdf(params, descriptive_stats, q1, q2, q3)
+    print(get_gamma_quartiles(params["alpha"], params["loc"], params["scale"]))
     return {
         "gamma_dist": params,
         "descriptive_stats": descriptive_stats,
