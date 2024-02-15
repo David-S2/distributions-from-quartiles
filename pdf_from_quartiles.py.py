@@ -227,7 +227,7 @@ class Pdf_from_quartiles:
 				else:
 					print("No distributions were successfully generated.")
 	
-	def stats(self, dist):
+	def stats(self, dist=""):
 		match dist:
 			case "skewnorm":
 				if self.__distribution_is_valid(self.skewnorm):
@@ -241,8 +241,14 @@ class Pdf_from_quartiles:
 				if self.__distribution_is_valid(self.gamma):
 					return self.weibull.stats
 				else: return {}
+			case _ :
+				print(
+					"No distribution identified, please pass 'skewnorm', 'gamma' or " \
+					"'weibull' as an argument."
+				)
+				return {}
 	
-	def params(self, dist):
+	def params(self, dist=""):
 		match dist:
 			case "skewnorm":
 				if self.__distribution_is_valid(self.skewnorm):
@@ -256,6 +262,12 @@ class Pdf_from_quartiles:
 				if self.__distribution_is_valid(self.gamma):
 					return self.weibull.params
 				else: return {}
+			case _ :
+				print(
+					"No distribution identified, please pass 'skewnorm', 'gamma' or " \
+					"'weibull' as an argument."
+				)
+				return {}
 
 class Skewnorm_from_quartiles:
 	def __init__(self, qs):
