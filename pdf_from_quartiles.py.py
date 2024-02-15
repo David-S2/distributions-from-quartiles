@@ -237,8 +237,8 @@ class Pdf_from_quartiles:
 				if self.__distribution_is_valid(self.gamma):
 					return self.gamma.stats
 				else: return {}
-			case "gamma":
-				if self.__distribution_is_valid(self.gamma):
+			case "weibull":
+				if self.__distribution_is_valid(self.weibull):
 					return self.weibull.stats
 				else: return {}
 			case _ :
@@ -258,8 +258,8 @@ class Pdf_from_quartiles:
 				if self.__distribution_is_valid(self.gamma):
 					return self.gamma.params
 				else: return {}
-			case "gamma":
-				if self.__distribution_is_valid(self.gamma):
+			case "weibull":
+				if self.__distribution_is_valid(self.weibull):
 					return self.weibull.params
 				else: return {}
 			case _ :

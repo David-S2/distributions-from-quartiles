@@ -15,7 +15,7 @@ To see more detailed plots of a single distribution use:
 * `pdfs.plot('gamma')`
 * `pdfs.plot('weibull')`
 
-To retrieve the shape, scale and location parameters which define each distribution use:
+To retrieve the _shape_ (`alpha`), _scale_ and _location_ parameters which define each distribution use:
 * `pdfs.params('skewnorm')`
 * `pdfs.params('gamma')`
 * `pdfs.params('weibull')`
