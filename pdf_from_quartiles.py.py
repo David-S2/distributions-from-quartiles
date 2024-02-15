@@ -16,6 +16,7 @@ class Pdf_from_quartiles:
 		self.print_means()
 		self.print_proportion_negative()
 		self.plot()
+		self.print_reasons_not_generated()
 
 	def __str__(self):
 		string = "The following distributions have been successfully generated:"
@@ -26,13 +27,30 @@ class Pdf_from_quartiles:
 		if self.gamma.valid:
 			string = string + "\n - Gamma distribution"
 			valid = True
-		if self.gamma.valid:
+		if self.weibull.valid:
 			string = string + "\n - Weibull distribution"
 			valid = True
 		if not valid:
 			return "No distributions were successfully generated."
 		else: return string
 	
+	def print_reasons_not_generated(self):
+		if not self.skewnorm.valid:
+			print(
+				"The skew normal distribution could not be generated for the following" \
+				+ " reason:\n\n" + self.skewnorm.message + "\n\n"
+			)
+		if not self.gamma.valid:
+			print(
+				"The gamma distribution could not be generated for the following " \
+				+ "reason:\n\n" + self.gamma.message + "\n\n"
+			)
+		if not self.weibull.valid:
+			print(
+				"The Weibull distribution could not be generated for the following " \
+				+ "reason:\n\n" + self.weibull.message + "\n\n"
+			)
+
 	def print_proportion_negative(self):
 		string = "Proportions negative:"
 		valid = False
@@ -44,7 +62,7 @@ class Pdf_from_quartiles:
 			string = string + "\n - Gamma distribution: " \
 				+ str(round(self.gamma.proportion_negative * 100, 1)) + "%"
 			valid = True
-		if self.gamma.valid:
+		if self.weibull.valid:
 			string = string + "\n - Weibull distribution: " \
 				+ str(round(self.weibull.proportion_negative * 100, 1)) + "%"
 			valid = True
@@ -62,7 +80,7 @@ class Pdf_from_quartiles:
 			string = string + "\n - Gamma distribution: " \
 				+ str(self.gamma.stats["mean"])
 			valid = True
-		if self.gamma.valid:
+		if self.weibull.valid:
 			string = string + "\n - Weibull distribution: " \
 				+ str(self.weibull.stats["mean"])
 			valid = True
@@ -430,15 +448,15 @@ class Gamma_from_quartiles:
 	def __quartiles_define_valid_gamma(self):
 		if self.qs[1]-self.qs[0] == self.qs[2]-self.qs[1]:
 			self.valid = False
-			self.message = "This distribution is symmetric, Gamma distributions cannot be " \
+			self.message = "This distribution is symmetric, gamma distributions cannot be " \
 				+ "symmetric."
 		elif self.qs[2]-self.qs[1] < self.qs[1]-self.qs[0]:
 			self.valid = False
-			self.message = "This distribution is negatively skewed, Gamma distributions can " \
+			self.message = "This distribution is negatively skewed, gamma distributions can " \
 				+ "only be generated for positively skewed data."
 		elif (self.qs[2]-self.qs[1]) / (self.qs[1]-self.qs[0]) > 1000:
 			self.valid = False
-			self.message = "This distribution is too skewed, Gamma distributions cannot " \
+			self.message = "This distribution is too skewed, gamma distributions cannot " \
 				+ "be generated where the ratio (Q3 - Q2) / (Q2 - Q1) is greater than 1000. " \
 				+ "The ratio in this case is " \
 				+ str(round((self.qs[2] - self.qs[1]) / (self.qs[1] - self.qs[0]), 0)) + "."
