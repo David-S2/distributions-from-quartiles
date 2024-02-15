@@ -52,7 +52,7 @@ class Pdf_from_quartiles:
 			)
 
 	def print_proportion_negative(self):
-		string = "Proportions negative:"
+		string = "Cumulative probability at x=0:"
 		valid = False
 		if self.skewnorm.valid:
 			string = string + "\n - Skew normal distribution: " \
